@@ -9,12 +9,19 @@
 /* Begin PBXBuildFile section */
 		35862FCD234D507800949BA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35862FCC234D507800949BA3 /* AppDelegate.swift */; };
 		35862FCF234D507800949BA3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35862FCE234D507800949BA3 /* SceneDelegate.swift */; };
-		35862FD1234D507800949BA3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35862FD0234D507800949BA3 /* ViewController.swift */; };
+		35862FD1234D507800949BA3 /* GHUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35862FD0234D507800949BA3 /* GHUsersViewController.swift */; };
 		35862FD4234D507800949BA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35862FD2234D507800949BA3 /* Main.storyboard */; };
 		35862FD6234D507900949BA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35862FD5234D507900949BA3 /* Assets.xcassets */; };
 		35862FD9234D507900949BA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35862FD7234D507900949BA3 /* LaunchScreen.storyboard */; };
 		35862FE4234D507900949BA3 /* GitHubUsersReposTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35862FE3234D507900949BA3 /* GitHubUsersReposTests.swift */; };
 		35862FEF234D507900949BA3 /* GitHubUsersReposUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35862FEE234D507900949BA3 /* GitHubUsersReposUITests.swift */; };
+		35862FFE234D53A700949BA3 /* GHUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35862FFD234D53A700949BA3 /* GHUserTableViewCell.xib */; };
+		35863000234D5F4A00949BA3 /* GHConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35862FFF234D5F4A00949BA3 /* GHConstants.swift */; };
+		35863002234D60BA00949BA3 /* GHUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35863001234D60BA00949BA3 /* GHUserTableViewCell.swift */; };
+		35863005234EA67C00949BA3 /* GHUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35863004234EA67C00949BA3 /* GHUser.swift */; };
+		35863007234EA90400949BA3 /* GHAPIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35863006234EA90400949BA3 /* GHAPIRequestManager.swift */; };
+		35863016234F214200949BA3 /* GHUserRepos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35863015234F214200949BA3 /* GHUserRepos.swift */; };
+		35863018234F284700949BA3 /* GHUserSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35863017234F284700949BA3 /* GHUserSearch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +45,7 @@
 		35862FC9234D507800949BA3 /* GitHubUsersRepos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubUsersRepos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35862FCC234D507800949BA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35862FCE234D507800949BA3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		35862FD0234D507800949BA3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		35862FD0234D507800949BA3 /* GHUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHUsersViewController.swift; sourceTree = "<group>"; };
 		35862FD3234D507800949BA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		35862FD5234D507900949BA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35862FD8234D507900949BA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +56,13 @@
 		35862FEA234D507900949BA3 /* GitHubUsersReposUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitHubUsersReposUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35862FEE234D507900949BA3 /* GitHubUsersReposUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUsersReposUITests.swift; sourceTree = "<group>"; };
 		35862FF0234D507900949BA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35862FFD234D53A700949BA3 /* GHUserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GHUserTableViewCell.xib; sourceTree = "<group>"; };
+		35862FFF234D5F4A00949BA3 /* GHConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHConstants.swift; sourceTree = "<group>"; };
+		35863001234D60BA00949BA3 /* GHUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHUserTableViewCell.swift; sourceTree = "<group>"; };
+		35863004234EA67C00949BA3 /* GHUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHUser.swift; sourceTree = "<group>"; };
+		35863006234EA90400949BA3 /* GHAPIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHAPIRequestManager.swift; sourceTree = "<group>"; };
+		35863015234F214200949BA3 /* GHUserRepos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHUserRepos.swift; sourceTree = "<group>"; };
+		35863017234F284700949BA3 /* GHUserSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHUserSearch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +113,17 @@
 		35862FCB234D507800949BA3 /* GitHubUsersRepos */ = {
 			isa = PBXGroup;
 			children = (
+				35863003234EA15000949BA3 /* Models */,
+				35862FFC234D536900949BA3 /* Views */,
 				35862FCC234D507800949BA3 /* AppDelegate.swift */,
 				35862FCE234D507800949BA3 /* SceneDelegate.swift */,
-				35862FD0234D507800949BA3 /* ViewController.swift */,
+				35862FD0234D507800949BA3 /* GHUsersViewController.swift */,
 				35862FD2234D507800949BA3 /* Main.storyboard */,
 				35862FD5234D507900949BA3 /* Assets.xcassets */,
 				35862FD7234D507900949BA3 /* LaunchScreen.storyboard */,
 				35862FDA234D507900949BA3 /* Info.plist */,
+				35862FFF234D5F4A00949BA3 /* GHConstants.swift */,
+				35863006234EA90400949BA3 /* GHAPIRequestManager.swift */,
 			);
 			path = GitHubUsersRepos;
 			sourceTree = "<group>";
@@ -126,6 +144,25 @@
 				35862FF0234D507900949BA3 /* Info.plist */,
 			);
 			path = GitHubUsersReposUITests;
+			sourceTree = "<group>";
+		};
+		35862FFC234D536900949BA3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				35862FFD234D53A700949BA3 /* GHUserTableViewCell.xib */,
+				35863001234D60BA00949BA3 /* GHUserTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		35863003234EA15000949BA3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35863004234EA67C00949BA3 /* GHUser.swift */,
+				35863015234F214200949BA3 /* GHUserRepos.swift */,
+				35863017234F284700949BA3 /* GHUserSearch.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35862FD9234D507900949BA3 /* LaunchScreen.storyboard in Resources */,
+				35862FFE234D53A700949BA3 /* GHUserTableViewCell.xib in Resources */,
 				35862FD6234D507900949BA3 /* Assets.xcassets in Resources */,
 				35862FD4234D507800949BA3 /* Main.storyboard in Resources */,
 			);
@@ -259,8 +297,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35862FD1234D507800949BA3 /* ViewController.swift in Sources */,
+				35863018234F284700949BA3 /* GHUserSearch.swift in Sources */,
+				35863007234EA90400949BA3 /* GHAPIRequestManager.swift in Sources */,
+				35863000234D5F4A00949BA3 /* GHConstants.swift in Sources */,
+				35863005234EA67C00949BA3 /* GHUser.swift in Sources */,
+				35862FD1234D507800949BA3 /* GHUsersViewController.swift in Sources */,
+				35863016234F214200949BA3 /* GHUserRepos.swift in Sources */,
 				35862FCD234D507800949BA3 /* AppDelegate.swift in Sources */,
+				35863002234D60BA00949BA3 /* GHUserTableViewCell.swift in Sources */,
 				35862FCF234D507800949BA3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
