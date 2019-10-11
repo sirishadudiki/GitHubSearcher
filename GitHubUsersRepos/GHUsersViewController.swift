@@ -14,50 +14,27 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var userResults : [GHUser] = []
     var base64LoginString : String = ""
+    var selectedUserRepoURL :String?
+    var selectedLoginName : String?
+    var selectedUserAvatar : UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-
+        self.title = GHPageTitle
+        print("Displaying top users on home screen.. until user starts search")
+        getTopUsers()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        print("Displaying top users on home screen.. until user starts search")
-
-        let getUserUrl = URL(string: "https://api.github.com/users")
-        let loginString = String(format: "%@:%@", "sirishadudiki", "7ecbc86911433a3b68ce73516b894a1dd8a1a85e")
-        let loginData = loginString.data(using: String.Encoding.utf8)!
-        base64LoginString = loginData.base64EncodedString()
-
-        var getUsersUrlRequest = URLRequest(url: getUserUrl!)
-        getUsersUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
-
-        GHAPIRequestManager.performCloudRequest(getUsersUrlRequest, success: { (status, data) in
-            if status == 200
-            {
-                if let data = data {
-                    do {
-                        self.userResults = try JSONDecoder().decode([GHUser].self, from: data)
-                        self.userTableView.reloadData()
-                        print("retrieved \(self.userResults.count) users")
-
-                    } catch {
-                        print("unable to get user details")
-                    }
-                }
-            }
-            else{
-                print("unable to get user details")
-                // Show appropriate error as per status codes
-            }
-        }) {(error) in
-            print("unable to get user details")
+        if (userResults.isEmpty)
+        {
+            getTopUsers()
         }
     }
 
     //MARK: - UITableViewDataSource
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userResults.count
     }
@@ -71,7 +48,6 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         let getUsersAvatarUrl = URL(string: userResults[row].avatar_url)
         var avatarUrlRequest = URLRequest(url: getUsersAvatarUrl!)
-
         avatarUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
         GHAPIRequestManager.performCloudRequest(avatarUrlRequest, success: { (status, data ) in
@@ -133,8 +109,7 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
     @objc private func retrieveUsers( _ searchBar : UISearchBar){
 
         guard let searchText = searchBar.text, searchText.trimmingCharacters(in: .whitespaces) != "" else {
-            userResults.removeAll()
-            self.userTableView.reloadData()
+            getTopUsers()
             return
         }
         let getUserSearchUrl = URL(string: "https://api.github.com/search/users?q="+searchText)
@@ -148,7 +123,9 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
                     do {
                         let searchResults = try JSONDecoder().decode(GHUserSearch.self, from: data)
                         self.userResults = searchResults.items
-                        self.userTableView.reloadData()
+                        DispatchQueue.main.async {
+                            self.userTableView.reloadData()
+                        }
                         print("retrieved \(self.userResults.count) users")
 
                     } catch {
@@ -162,6 +139,68 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }) {(error) in
             print("unable to get user details")
+        }
+    }
+
+    func getTopUsers()
+    {
+        let getUserUrl = URL(string: "https://api.github.com/users")
+        let loginString = String(format: "%@:%@", "sirishadudiki", "7ecbc86911433a3b68ce73516b894a1dd8a1a85e")
+        let loginData = loginString.data(using: String.Encoding.utf8)!
+        base64LoginString = loginData.base64EncodedString()
+
+        var getUsersUrlRequest = URLRequest(url: getUserUrl!)
+        getUsersUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+
+        GHAPIRequestManager.performCloudRequest(getUsersUrlRequest, success: { (status, data) in
+            if status == 200
+            {
+                if let data = data {
+                    do {
+                        self.userResults = try JSONDecoder().decode([GHUser].self, from: data)
+                        DispatchQueue.main.async {
+                            self.userTableView.reloadData()
+                        }
+                        print("retrieved \(self.userResults.count) users")
+
+                    } catch {
+                        print("unable to get user details")
+                    }
+                }
+            }
+            else{
+                print("unable to get user details")
+                // Show appropriate error as per status codes
+            }
+        }) {(error) in
+            print("unable to get user details")
+        }
+    }
+
+    //MARK: - UITableViewDelegate
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selcted row# \(indexPath.row)")
+
+        let selectedCell = tableView.cellForRow(at: indexPath) as? GHUserTableViewCell
+        selectedLoginName = selectedCell?.userName.text
+        selectedUserAvatar = selectedCell?.avatarImage.image
+        selectedUserRepoURL = userResults[indexPath.row].repos_url
+        self.performSegue(withIdentifier: GHUserProfileSegueIdentifier, sender: self)
+    }
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // back button
+        let backBarButton = UIBarButtonItem.init(title: "Users", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = backBarButton
+
+
+        if let controller = segue.destination as? GHUserProfileViewController
+        {
+            controller.loginName = selectedLoginName
+            controller.userImage = selectedUserAvatar
+            controller.usersReposUrl = selectedUserRepoURL
         }
     }
 }

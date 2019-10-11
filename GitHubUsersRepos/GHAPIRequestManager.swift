@@ -19,30 +19,15 @@ class GHAPIRequestManager: NSObject {
 
             if let response = response as? HTTPURLResponse
             {
-                DispatchQueue.main.async(execute: {
-                    success(response.statusCode, data)
-                })
+                success(response.statusCode, data)
             }
             else
             {
-                DispatchQueue.main.async(execute: {
-                    failure(error! as NSError)
-                })
+                failure(error! as NSError)
             }
         })
 
         sessionDataTask.resume()
-    }
-
-    static func getUsersSearch(data : Data) -> [GHUser]?
-    {
-        do {
-             let users = try JSONDecoder().decode([GHUser].self, from: data)
-            return users
-        } catch {
-            print("Error: Couldn't decode data to SFOTScheduleModel")
-            return nil
-        }
     }
 }
 

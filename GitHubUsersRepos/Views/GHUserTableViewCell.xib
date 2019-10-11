@@ -9,10 +9,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GHUserTableViewCellIdentifier" rowHeight="100" id="hQ5-xQ-1no" customClass="GHUserTableViewCell" customModule="GitHubUsersRepos" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="458" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="583" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hQ5-xQ-1no" id="vWg-Gq-Rtv">
-                <rect key="frame" x="0.0" y="0.0" width="458" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="583" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aEq-XE-cVX">
@@ -28,14 +28,14 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Repo:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMH-9O-24y" userLabel="Repo">
-                        <rect key="frame" x="213" y="40" width="194.5" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repo:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMH-9O-24y" userLabel="Repo">
+                        <rect key="frame" x="488" y="39.5" width="44.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ju-dI-AOg" userLabel="RepositoryCount">
-                        <rect key="frame" x="412.5" y="40" width="20.5" height="20.5"/>
+                        <rect key="frame" x="537.5" y="40" width="20.5" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -44,11 +44,11 @@
                 <constraints>
                     <constraint firstItem="aEq-XE-cVX" firstAttribute="leading" secondItem="vWg-Gq-Rtv" secondAttribute="leading" constant="25" id="3J1-Zi-PUk"/>
                     <constraint firstItem="K5o-Bu-3KB" firstAttribute="centerY" secondItem="vWg-Gq-Rtv" secondAttribute="centerY" id="CXn-ok-7kd"/>
+                    <constraint firstAttribute="trailing" secondItem="6ju-dI-AOg" secondAttribute="trailing" constant="25" id="HiE-GF-PYz"/>
+                    <constraint firstItem="HMH-9O-24y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="K5o-Bu-3KB" secondAttribute="trailing" constant="10" id="J7m-WZ-iXh"/>
                     <constraint firstItem="6ju-dI-AOg" firstAttribute="leading" secondItem="HMH-9O-24y" secondAttribute="trailing" constant="5" id="KOw-xE-m03"/>
-                    <constraint firstAttribute="trailing" secondItem="6ju-dI-AOg" secondAttribute="trailing" constant="25" id="MZ4-7g-NZv"/>
                     <constraint firstItem="6ju-dI-AOg" firstAttribute="centerY" secondItem="vWg-Gq-Rtv" secondAttribute="centerY" id="XbD-JY-yoN"/>
                     <constraint firstItem="HMH-9O-24y" firstAttribute="centerY" secondItem="vWg-Gq-Rtv" secondAttribute="centerY" id="bDZ-eY-hxs"/>
-                    <constraint firstItem="HMH-9O-24y" firstAttribute="leading" secondItem="K5o-Bu-3KB" secondAttribute="trailing" priority="750" constant="25" id="hrj-hq-BH4"/>
                     <constraint firstItem="aEq-XE-cVX" firstAttribute="centerY" secondItem="vWg-Gq-Rtv" secondAttribute="centerY" id="qRs-V8-wFd"/>
                     <constraint firstItem="K5o-Bu-3KB" firstAttribute="leading" secondItem="aEq-XE-cVX" secondAttribute="trailing" constant="25" id="zMv-HW-dMn"/>
                 </constraints>
@@ -58,7 +58,7 @@
                 <outlet property="repositoryCount" destination="6ju-dI-AOg" id="1TB-e4-oOL"/>
                 <outlet property="userName" destination="K5o-Bu-3KB" id="ynZ-Tj-q4Y"/>
             </connections>
-            <point key="canvasLocation" x="-94.20289855072464" y="-211.60714285714286"/>
+            <point key="canvasLocation" x="-3.6231884057971016" y="-211.60714285714286"/>
         </tableViewCell>
     </objects>
 </document>
