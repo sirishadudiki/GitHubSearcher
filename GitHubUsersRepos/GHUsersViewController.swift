@@ -145,7 +145,7 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
     func getTopUsers()
     {
         let getUserUrl = URL(string: "https://api.github.com/users")
-        let loginString = String(format: "%@:%@", "sirishadudiki", "7ecbc86911433a3b68ce73516b894a1dd8a1a85e")
+        let loginString = String(format: "%@:%@", githubLoginName, githubToken)
         let loginData = loginString.data(using: String.Encoding.utf8)!
         base64LoginString = loginData.base64EncodedString()
 

@@ -82,7 +82,7 @@ class GHUserProfileViewController: UIViewController, UITableViewDataSource, UITa
     func getUserRepositories( url : URL)
     {
         var getUsersReposSearchUrlRequest = URLRequest(url: url)
-        let loginString = String(format: "%@:%@", "sirishadudiki", "7ecbc86911433a3b68ce73516b894a1dd8a1a85e")
+        let loginString = String(format: "%@:%@", githubLoginName, githubToken)
         let loginData = loginString.data(using: String.Encoding.utf8)!
         let base64LoginString = loginData.base64EncodedString()
         getUsersReposSearchUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
@@ -117,7 +117,7 @@ class GHUserProfileViewController: UIViewController, UITableViewDataSource, UITa
     func getUserProfileData(_ loginName : String)
     {
         let getUserProfileUrl = URL(string: "https://api.github.com/users/"+loginName)
-        let loginString = String(format: "%@:%@", "sirishadudiki", "7ecbc86911433a3b68ce73516b894a1dd8a1a85e")
+        let loginString = String(format: "%@:%@", githubLoginName, githubToken)
         let loginData = loginString.data(using: String.Encoding.utf8)!
         let base64LoginString = loginData.base64EncodedString()
 
