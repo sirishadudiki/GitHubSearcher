@@ -116,17 +116,18 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
         var getUsersSearchUrlRequest = URLRequest(url: getUserSearchUrl!)
         getUsersSearchUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
-        GHAPIRequestManager.performCloudRequest(getUsersSearchUrlRequest, success: { (status, data) in
+        GHAPIRequestManager.performCloudRequest(getUsersSearchUrlRequest, success: {[weak self] (status, data) in
+            guard let strongSelf = self else { return}
             if status == 200
             {
                 if let data = data {
                     do {
                         let searchResults = try JSONDecoder().decode(GHUserSearch.self, from: data)
-                        self.userResults = searchResults.items
+                        strongSelf.userResults = searchResults.items
                         DispatchQueue.main.async {
-                            self.userTableView.reloadData()
+                            strongSelf.userTableView.reloadData()
                         }
-                        print("retrieved \(self.userResults.count) users")
+                        print("retrieved \(strongSelf.userResults.count) users")
 
                     } catch {
                         print("unable to get user details")
@@ -152,16 +153,17 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
         var getUsersUrlRequest = URLRequest(url: getUserUrl!)
         getUsersUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
-        GHAPIRequestManager.performCloudRequest(getUsersUrlRequest, success: { (status, data) in
+        GHAPIRequestManager.performCloudRequest(getUsersUrlRequest, success: {[weak self] (status, data) in
+            guard let strongSelf = self else { return }
             if status == 200
             {
                 if let data = data {
                     do {
-                        self.userResults = try JSONDecoder().decode([GHUser].self, from: data)
+                        strongSelf.userResults = try JSONDecoder().decode([GHUser].self, from: data)
                         DispatchQueue.main.async {
-                            self.userTableView.reloadData()
+                            strongSelf.userTableView.reloadData()
                         }
-                        print("retrieved \(self.userResults.count) users")
+                        print("retrieved \(strongSelf.userResults.count) users")
 
                     } catch {
                         print("unable to get user details")

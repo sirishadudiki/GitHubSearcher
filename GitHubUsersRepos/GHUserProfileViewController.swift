@@ -87,15 +87,16 @@ class GHUserProfileViewController: UIViewController, UITableViewDataSource, UITa
         let base64LoginString = loginData.base64EncodedString()
         getUsersReposSearchUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
-        GHAPIRequestManager.performCloudRequest(getUsersReposSearchUrlRequest, success: { (status, data) in
+        GHAPIRequestManager.performCloudRequest(getUsersReposSearchUrlRequest, success: {[weak self] (status, data) in
+            guard let strongSelf = self else { return}
             if status == 200
             {
                 if let data = data {
                     do {
-                        self.repositoriesList = try JSONDecoder().decode([GHUserRepos].self, from: data)
+                        strongSelf.repositoriesList = try JSONDecoder().decode([GHUserRepos].self, from: data)
                         
                         DispatchQueue.main.async {
-                            self.repositoriesTableView.reloadData()
+                            strongSelf.repositoriesTableView.reloadData()
                         }
 
                     } catch {
@@ -124,7 +125,8 @@ class GHUserProfileViewController: UIViewController, UITableViewDataSource, UITa
         var getUserProfileUrlRequest = URLRequest(url: getUserProfileUrl!)
         getUserProfileUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
-        GHAPIRequestManager.performCloudRequest(getUserProfileUrlRequest, success: { (status, data) in
+        GHAPIRequestManager.performCloudRequest(getUserProfileUrlRequest, success: {[weak self] (status, data) in
+           guard let strongSelf = self else { return}
             if status == 200
             {
                 if let data = data {
@@ -132,12 +134,12 @@ class GHUserProfileViewController: UIViewController, UITableViewDataSource, UITa
                         let profile = try JSONDecoder().decode(GHUserProfile.self, from: data)
 
                         DispatchQueue.main.async {
-                            self.userName.text = profile.name
-                            self.emailAddress.text = profile.email
-                            self.followersCount.text = "\(profile.followers)"
-                            self.followingCount.text = "\(profile.following)"
-                            self.joiningDate.text = profile.created_at
-                            self.location.text = profile.location
+                            strongSelf.userName.text = profile.name
+                            strongSelf.emailAddress.text = profile.email
+                            strongSelf.followersCount.text = "\(profile.followers)"
+                            strongSelf.followingCount.text = "\(profile.following)"
+                            strongSelf.joiningDate.text = profile.created_at
+                            strongSelf.location.text = profile.location
                         }
                     } catch {
                         print("unable to get user profile")
