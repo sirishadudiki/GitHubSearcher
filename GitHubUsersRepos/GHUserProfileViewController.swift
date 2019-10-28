@@ -87,7 +87,7 @@ class GHUserProfileViewController: UIViewController, UITableViewDataSource, UITa
         let base64LoginString = loginData.base64EncodedString()
         getUsersReposSearchUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
-        GHAPIRequestManager.performCloudRequest(getUsersReposSearchUrlRequest, success: {[weak self] (status, data) in
+        GHAPIRequestManager.sharedManager.performCloudRequest(getUsersReposSearchUrlRequest, success: {[weak self] (status, data) in
             guard let strongSelf = self else { return}
             if status == 200
             {
@@ -101,16 +101,32 @@ class GHUserProfileViewController: UIViewController, UITableViewDataSource, UITa
 
                     } catch {
                         print("unable to get user repo details")
+                        DispatchQueue.main.async {
+                            strongSelf.showAlert()
+                        }
                     }
                 }
             }
             else{
                 print("unable to get user repo details")
-                // Show appropriate error as per status codes
+                // TODO:Show appropriate error as per status codes
+                DispatchQueue.main.async {
+                    strongSelf.showAlert()
+                }
             }
         }) {(error) in
             print("unable to get user repo details")
+            DispatchQueue.main.async {
+                self.showAlert()
+            }
         }
+    }
+
+    func showAlert()
+    {
+        let alert = UIAlertController(title: "Something went wrong", message: "Something wnet wrong. Please try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 
     //MARK: - NetworkCalls
@@ -125,7 +141,7 @@ class GHUserProfileViewController: UIViewController, UITableViewDataSource, UITa
         var getUserProfileUrlRequest = URLRequest(url: getUserProfileUrl!)
         getUserProfileUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
-        GHAPIRequestManager.performCloudRequest(getUserProfileUrlRequest, success: {[weak self] (status, data) in
+        GHAPIRequestManager.sharedManager.performCloudRequest(getUserProfileUrlRequest, success: {[weak self] (status, data) in
            guard let strongSelf = self else { return}
             if status == 200
             {
@@ -143,15 +159,25 @@ class GHUserProfileViewController: UIViewController, UITableViewDataSource, UITa
                         }
                     } catch {
                         print("unable to get user profile")
+                        DispatchQueue.main.async {
+                            strongSelf.showAlert()
+                        }
                     }
                 }
             }
             else{
                 print("unable to get user profile")
                 // Show appropriate error as per status codes
+                DispatchQueue.main.async {
+                    strongSelf.showAlert()
+                }
             }
-        }) {(error) in
+        }) {[weak self] (error) in
+        guard let strongSelf = self else { return}
             print("unable to get user profile")
+            DispatchQueue.main.async {
+                strongSelf.showAlert()
+            }
         }
     }
 }

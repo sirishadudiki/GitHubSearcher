@@ -16,7 +16,7 @@ class GHAPIRequestManager: NSObject {
     typealias NetworkResponseSuccess = (_ status : Int?, _ response : Data?) -> ()
     typealias NetworkResponseFailure = (_ error : NSError) -> ()
 
-    static func performCloudRequest( _ request : URLRequest, success : @escaping NetworkResponseSuccess, failure : @escaping NetworkResponseFailure)
+    func performCloudRequest( _ request : URLRequest, success : @escaping NetworkResponseSuccess, failure : @escaping NetworkResponseFailure)
     {
         let sessionDataTask = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
 

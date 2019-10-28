@@ -40,4 +40,26 @@ class GitHubUsersReposUITests: XCTestCase {
             }
         }
     }
+
+    func testClickToDetailView() {
+
+        let app = XCUIApplication()
+        app.launch()
+        app.tables/*@START_MENU_TOKEN@*/.staticTexts["mojombo"]/*[[".cells.staticTexts[\"mojombo\"]",".staticTexts[\"mojombo\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.navigationBars["GitHub Searcher"].buttons["Users"].tap()
+    }
+
+    func testSeachUsersClickToDetailView(){
+
+        let app = XCUIApplication()
+        app.launch()
+        XCUIApplication()/*@START_MENU_TOKEN@*/.searchFields["Search for Users"]/*[[".otherElements[\"SearchUsers\"].searchFields[\"Search for Users\"]",".searchFields[\"Search for Users\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+
+        let tablesQuery = app.tables
+        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["sirishadudiki"]/*[[".cells.staticTexts[\"sirishadudiki\"]",".staticTexts[\"sirishadudiki\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["GitHubSearcher"]/*[[".cells.staticTexts[\"GitHubSearcher\"]",".staticTexts[\"GitHubSearcher\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.statusBars/*@START_MENU_TOKEN@*/.buttons["breadcrumb"]/*[[".buttons[\"Return to GitHubUsersRepos\"]",".buttons[\"breadcrumb\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.navigationBars["GitHub Searcher"].buttons["Users"].tap()
+
+    }
 }

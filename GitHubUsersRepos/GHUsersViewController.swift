@@ -50,7 +50,8 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
         var avatarUrlRequest = URLRequest(url: getUsersAvatarUrl!)
         avatarUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
-        GHAPIRequestManager.performCloudRequest(avatarUrlRequest, success: { (status, data ) in
+        GHAPIRequestManager.sharedManager.performCloudRequest(avatarUrlRequest, success: { [weak self] (status, data ) in
+            guard let strongSelf = self else { return }
             if status == 200
             {
                 if let imageData = data {
@@ -62,9 +63,16 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 else
                 {
                     print("unable to get avatar image")
+                    DispatchQueue.main.async {
+                        strongSelf.showAlert()
+                    }
                 }
-            }}) { (error) in
+            }}) { [weak self](error) in
+                guard let strongSelf = self else { return }
                 print("unable to get avatar image")
+                DispatchQueue.main.async {
+                    strongSelf.showAlert()
+                }
         }
         
         userCell?.userName.text = userResults[row].login
@@ -73,7 +81,8 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
         var reposUrlRequest = URLRequest(url: getReposUrl!)
 
         reposUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
-        GHAPIRequestManager.performCloudRequest(reposUrlRequest, success: { (status, data ) in
+        GHAPIRequestManager.sharedManager.performCloudRequest(reposUrlRequest, success: {[weak self]  (status, data ) in
+        guard let strongSelf = self else { return}
             if status == 200
             {
                 if let reposData = data {
@@ -85,10 +94,17 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
                     catch
                     {
                         print("unable to get avatar image")
+                        DispatchQueue.main.async {
+                            strongSelf.showAlert()
+                        }
                     }
 
-                }}}) { (error) in
+                }}}) { [weak self] (error) in
+                guard let strongSelf = self else { return}
                     print("unable to get avatar image")
+                    DispatchQueue.main.async {
+                        strongSelf.showAlert()
+                    }
         }
         
         return userCell!
@@ -108,15 +124,16 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @objc private func retrieveUsers( _ searchBar : UISearchBar){
 
-        guard let searchText = searchBar.text, searchText.trimmingCharacters(in: .whitespaces) != "" else {
+        guard let searchText = searchBar.text, searchText.trimmingCharacters(in: .whitespacesAndNewlines) != "" else {
             getTopUsers()
             return
         }
-        let getUserSearchUrl = URL(string: "https://api.github.com/search/users?q="+searchText)
+        let text = searchText.filter{$0 != " "}
+        let getUserSearchUrl = URL(string: "https://api.github.com/search/users?q="+text)
         var getUsersSearchUrlRequest = URLRequest(url: getUserSearchUrl!)
         getUsersSearchUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
-        GHAPIRequestManager.performCloudRequest(getUsersSearchUrlRequest, success: {[weak self] (status, data) in
+        GHAPIRequestManager.sharedManager.performCloudRequest(getUsersSearchUrlRequest, success: {[weak self] (status, data) in
             guard let strongSelf = self else { return}
             if status == 200
             {
@@ -131,15 +148,25 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
 
                     } catch {
                         print("unable to get user details")
+                        DispatchQueue.main.async {
+                            strongSelf.showAlert()
+                        }
                     }
                 }
             }
             else{
                 print("unable to get user details")
                 // Show appropriate error as per status codes
+                DispatchQueue.main.async {
+                    strongSelf.showAlert()
+                }
             }
-        }) {(error) in
+        }) {[weak self](error) in
+            guard let strongSelf = self else { return}
             print("unable to get user details")
+            DispatchQueue.main.async {
+                strongSelf.showAlert()
+            }
         }
     }
 
@@ -153,7 +180,7 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
         var getUsersUrlRequest = URLRequest(url: getUserUrl!)
         getUsersUrlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
 
-        GHAPIRequestManager.performCloudRequest(getUsersUrlRequest, success: {[weak self] (status, data) in
+        GHAPIRequestManager.sharedManager.performCloudRequest(getUsersUrlRequest, success: {[weak self] (status, data) in
             guard let strongSelf = self else { return }
             if status == 200
             {
@@ -164,19 +191,35 @@ class GHUsersViewController: UIViewController, UITableViewDelegate, UITableViewD
                             strongSelf.userTableView.reloadData()
                         }
                         print("retrieved \(strongSelf.userResults.count) users")
-
                     } catch {
                         print("unable to get user details")
+                        DispatchQueue.main.async {
+                            strongSelf.showAlert()
+                        }
                     }
                 }
             }
             else{
                 print("unable to get user details")
                 // Show appropriate error as per status codes
+                DispatchQueue.main.async {
+                    strongSelf.showAlert()
+                }
             }
-        }) {(error) in
+        }) {[weak self](error) in
+        guard let strongSelf = self else { return}
             print("unable to get user details")
+            DispatchQueue.main.async {
+                strongSelf.showAlert()
+            }
         }
+    }
+    
+    func showAlert()
+    {
+        let alert = UIAlertController(title: "Something went wrong", message: "Something wnet wrong. Please try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 
     //MARK: - UITableViewDelegate
